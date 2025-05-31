@@ -423,6 +423,57 @@
   z-index: 1000;
 }
 
+		
+.menu-toggle {
+  display: none;
+  font-size: 1.8rem;
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+@media (max-width: 768px) {
+  .menu-toggle {
+    display: block;
+    margin-left: auto;
+  }
+  .navbar ul {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    margin-top: 10px;
+    padding: 15px 20px;
+    border-radius: 10px;
+    position: absolute; /* Take it out of document flow */
+    top: 100%;           /* Position below the navbar */
+    left: 0;
+    z-index: 998;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease;
+  }
+  .navbar ul.active {
+    display: flex;       /* Keep this for fallback */
+    opacity: 1;
+    visibility: visible;
+  }
+    .navbar {
+    position: relative;
+  }
+  .navbar ul li {
+    width: 100%;
+  }
+  .dropdown {
+    position: static;
+    margin-left: 10px;
+    margin-top: 5px;
+  }
+  .search-bar {
+    width: 100%;
+    margin-top: 10px;
+  }
+}
 
   </style>
 </head>
@@ -435,6 +486,7 @@
         <img src="logo.png" alt="Municipality of Urbiztondo Logo">
         <span>Municipality of Urbiztondo</span>
       </div>
+        <button class="menu-toggle" aria-label="Toggle menu">☰</button>
       <ul>
         <li><a href="#">Home</a></li>
        <li class="dropdown-container">
@@ -565,6 +617,16 @@
     });
   });
 </script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const menuToggle = document.querySelector(".menu-toggle");
+    const navList = document.querySelector(".navbar ul");
+    menuToggle.addEventListener("click", function () {
+      navList.classList.toggle("active");
+    });
+  });
+</script>
+
 
 
 
