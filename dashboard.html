@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dashboard</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      text-align: center;
+      color: #444;
+      background-color: #fff;
+      padding: 32px;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    h1 {
+      font-size: 48px;
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
+
+    p {
+      color: #7c7c7c;
+      margin-bottom: 32px;
+    }
+
+    .search-bar {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      margin-bottom: 32px;
+    }
+
+    .search-bar input {
+      width: 500px;
+      max-width: 90%;
+      height: 40px;
+      padding: 0 16px 0 40px;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+    }
+
+    .search-icon {
+      position: absolute;
+      left: calc(50% - 250px + 10px);
+      top: 50%;
+      transform: translateY(-50%);
+      width: 20px;
+      height: 20px;
+      pointer-events: none;
+      opacity: 0.6;
+    }
+
+    .search-icon:hover {
+      transform: scale(1.1);
+    }
+
+  .section-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 48px;
+    padding: 16px; /* Optional: padding around the group of cards */
+  }
+
+  .card-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+  }
+
+  .card {
+    background-color: #f1f1f1;
+    width: 260px;
+    height: 250px; /* Ensure cards have consistent height */
+    padding: 32px;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease;
+    transform-origin: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; /* Center content vertically */
+    position: relative;
+    text-align: center;
+    margin: 8px; /* Gap around the card */
+  }
+
+  .card:hover {
+    transform: scale(1.05);
+  }
+
+  .card img {
+    width: 50px;
+    height: 50px;
+    margin-bottom: 16px;
+  }
+
+  .card h3 {
+    font-size: 17.6px;
+    font-weight: bold;
+    margin-bottom: 8px;
+  }
+
+  .card p {
+    font-size: 14.4px;
+    color: #7C7C7C;
+    margin-bottom: 48px;
+  }
+
+.card-footer {
+  color: #D10C18;
+  font-size: 16px;
+  font-weight: 550;
+  position: absolute;
+  bottom: 16px;
+  left: 16px;
+  display: flex;
+  justify-content: space-between;
+  width: 200px;
+  gap: 5px;
+  align-items: center;
+  text-decoration: underline;
+  
+}
+
+.card-footer::after {
+  content: '»';
+  color: #D10C18;
+  font-size: 16px;
+  text-decoration: none;
+}
+
+  </style>
+</head>
+<body>
+
+  <h1>Dashboard</h1>
+  <p>Explore a wide range of services designed to meet the needs of our community.</p>
+
+  <div class="search-bar">
+    <input type="text" placeholder="Search..." />
+    <img src="https://img.icons8.com/ios-filled/50/search--v1.png" alt="Search Icon" class="search-icon" />
+  </div>
+
+  <div class="section-container">
+    <a href="#" class="card-link">
+      <div class="card">
+        <img src="https://img.icons8.com/ios-filled/50/calendar--v1.png" alt="Services Icon" />
+        <h3>Services</h3>
+        <p>Request Services here.</p>
+        <div class="card-footer">Request a Service</div>
+      </div>
+    </a>
+
+    <a href="#" class="card-link">
+      <div class="card">
+        <img src="https://img.icons8.com/ios-filled/50/complaint.png" alt="Complaints Icon" />
+        <h3>Online Complaints</h3>
+        <p>Make a complaint here.</p>
+        <div class="card-footer">Make a Complaint</div>
+      </div>
+    </a>
+  </div>
+
+</body>
+</html>
