@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* General Reset */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Body and General Text Styles (Matching theme) */
+        body {
+            text-align: center;
+            color: #444;
+            background-color: #fff; /* Keep this background for dashboard content */
+            padding: 32px;
+            font-family: 'Poppins', sans-serif; /* Use Poppins for body */
+        }
+
+        h1 {
+            font-size: 48px;
+            font-weight: bold;
+            margin-bottom: 8px;
+            font-family: 'Poppins', sans-serif; /* Ensure headings use Poppins */
+        }
+
+        p {
+            color: #7c7c7c;
+            margin-bottom: 32px;
+            font-family: 'Poppins', sans-serif; /* Ensure paragraphs use Poppins */
+        }
+
+        /* Search Bar Styles */
+        .search-bar {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            margin-bottom: 32px;
+        }
+
+        .search-bar input {
+            width: 500px;
+            max-width: 90%;
+            height: 40px;
+            padding: 0 16px 0 40px;
+            border-radius: 10px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+            font-family: 'Poppins', sans-serif; /* Search input also uses Poppins */
+        }
+
+        .search-icon {
+            position: absolute;
+            left: calc(50% - 250px + 10px);
+            top: 50%;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 20px;
+            pointer-events: none;
+            opacity: 0.6;
+        }
+
+        .search-icon:hover {
+            transform: scale(1.1);
+        }
+
+        /* Card Container */
+        .section-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 48px;
+            padding: 16px;
+        }
+
+        .card-link {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        /* Individual Card Styles */
+        .card {
+            background-color: #f1f1f1;
+            width: 260px;
+            height: 250px;
+            padding: 32px;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+            transform-origin: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            text-align: center;
+            margin: 8px;
+        }
+
+        .card:hover {
+            transform: scale(1.05);
+            background-color: #e8e8e8;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .card img {
+            width: 50px;
+            height: 50px;
+            margin-bottom: 16px;
+        }
+
+        .card h3 {
+            font-size: 17.6px;
+            font-weight: bold;
+            margin-bottom: 8px;
+            font-family: 'Poppins', sans-serif; /* Card headings use Poppins */
+        }
+
+        .card p {
+            font-size: 14.4px;
+            color: #7C7C7C;
+            margin-bottom: 48px;
+            font-family: 'Poppins', sans-serif; /* Card paragraphs use Poppins */
+        }
+
+        /* Card Footer Styles */
+        .card-footer {
+            color: #D10C18;
+            font-size: 16px;
+            font-weight: 550;
+            position: absolute;
+            bottom: 16px;
+            left: 16px;
+            display: flex;
+            justify-content: space-between;
+            width: 200px;
+            gap: 5px;
+            align-items: center;
+            text-decoration: underline;
+            transition: transform 0.2s ease, color 0.2s ease;
+            font-family: 'Poppins', sans-serif; /* Card footer uses Poppins */
+        }
+
+        .card-footer::after {
+            content: '»';
+            color: #D10C18;
+            font-size: 16px;
+            text-decoration: none;
+            transition: transform 0.2s ease;
+        }
+
+        .card-footer:hover {
+            transform: translateX(5px);
+            color: #b00a12;
+        }
+
+        .card-footer:hover::after {
+            transform: translateX(5px);
+        }
+
+        /* --- Modal Styles --- */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            visibility: hidden;
+            opacity: 0;
+            transition: visibility 0s, opacity 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .modal-content {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            width: 400px;
+            max-width: 90%;
+            position: relative;
+            text-align: left;
+            font-family: 'Poppins', sans-serif; /* Modal content uses Poppins */
+        }
+
+        .modal-content h2 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #333;
+            font-family: 'Poppins', sans-serif; /* Modal heading uses Poppins */
+        }
+
+        .modal-content ul {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 20px;
+        }
+
+        .modal-content ul li {
+            margin-bottom: 8px;
+            border-radius: 5px;
+            transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .modal-content ul li:last-child {
+            margin-bottom: 0;
+        }
+
+        .modal-content ul li a {
+            color: #555;
+            text-decoration: none;
+            display: block;
+            padding: 12px 15px;
+            font-size: 16px;
+            transition: color 0.2s ease;
+            font-family: 'Poppins', sans-serif; /* Modal links use Poppins */
+        }
+
+        .modal-content ul li a:hover {
+            color: #D10C18;
+            text-decoration: underline;
+        }
+
+        .modal-content ul li:hover {
+            background-color: #f0f0f0;
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+            cursor: pointer; 
+        }
+
+        .modal-close-btn {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 24px;
+            cursor: pointer;
+            color: #888;
+            border: none;
+            background: none;
+            padding: 0;
+            transition: color 0.2s ease, transform 0.2s ease; 
+        }
+
+        .modal-close-btn:hover {
+            color: #D10C18; 
+            transform: scale(1.2); 
+        }
+
+        /* Back Button Styles */
+        .back-button {
+            display: inline-block;
+            padding: 10px 16px;
+            border: 1.5px solid #7c7c7c;
+            color: #7c7c7c;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: lighter;
+            font-family: 'Poppins', sans-serif; /* Back button uses Poppins */
+            transition: all 0.3s ease;
+            margin: 20px;
+        }
+
+        .back-button:hover {
+            background-color: #D10C18; /* Use the theme's red */
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div style="text-align: left;"><a href="index.html" class="back-button">← Back to Home</a></div>
+
+    <h1>Dashboard</h1>
+    <p>Explore a wide range of services designed to meet the needs of our community.</p>
+
+    <div class="search-bar">
+        <input type="text" placeholder="Search..." />
+        <img src="https://img.icons8.com/ios-filled/50/search--v1.png" alt="Search Icon" class="search-icon" />
+    </div>
+
+    <div class="section-container">
+        <a href="#" class="card-link" id="servicesCardLink">
+            <div class="card">
+                <img src="https://img.icons8.com/ios-filled/50/calendar--v1.png" alt="Services Icon" />
+                <h3>Services</h3>
+                <p>Request Services here.</p>
+                <div class="card-footer">Request a Service</div>
+            </div>
+        </a>
+
+        <a href="complaints.html" class="card-link">
+            <div class="card">
+                <img src="https://img.icons8.com/ios-filled/50/complaint.png" alt="Complaints Icon" />
+                <h3>Online Complaints</h3>
+                <p>Make a complaint here.</p>
+                <div class="card-footer">Make a Complaint</div>
+            </div>
+        </a>
+    </div>
+
+    <div class="modal-overlay" id="servicesModal">
+        <div class="modal-content">
+            <button class="modal-close-btn" id="closeModalBtn">&times;</button>
+            <h2>Apply for:</h2>
+            <ul>
+                <li><a href="C:\Users\Erik Poyaoan\Desktop\E-service\kim\E-Service\building-permit.html">Building Permit</a></li>
+                <li><a href="C:\Users\Erik Poyaoan\Desktop\E-service\kim\E-Service\business-permit.html">Business Permit</a></li>
+                <li><a href="C:\Users\Erik Poyaoan\Desktop\E-service\kim\E-Service\sanitary-permit.html">Sanitary Permit</a></li>
+                <li><a href="C:\Users\Erik Poyaoan\Desktop\E-service\kim\E-Service\demolition-permit.html">Demolition Permit</a></li>
+                <li><a href="C:\Users\Erik Poyaoan\Desktop\E-service\kim\E-Service\electrical-permit.html">Electrical Permit</a></li>
+                <li><a href="complaints.html">Complaints</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        // Get references to the elements
+        const servicesCardLink = document.getElementById('servicesCardLink');
+        const servicesModal = document.getElementById('servicesModal');
+        const closeModalBtn = document.getElementById('closeModalBtn');
+
+        // Function to show the modal
+        function showModal(event) {
+            event.preventDefault(); // Prevent the default link behavior (e.g., navigating to #)
+            servicesModal.classList.add('active');
+        }
+
+        // Function to hide the modal
+        function hideModal() {
+            servicesModal.classList.remove('active');
+        }
+
+        // Add event listeners
+        servicesCardLink.addEventListener('click', showModal);
+        closeModalBtn.addEventListener('click', hideModal);
+        // Optional: Hide modal when clicking outside the content
+        servicesModal.addEventListener('click', function(event) {
+            if (event.target === servicesModal) { // Only hide if the click was directly on the overlay
+                hideModal();
+            }
+        });
+    </script>
+</body>
+</html>
