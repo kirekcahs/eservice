@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sanitary Permit</title>
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+        body {
+            font-family: "Poppins", sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #fff8ec;
+            color: #333;
+        }
+
+        .hero {
+            background: linear-gradient(90deg, #1E3C72, #2A5298);
+            color: #fff;
+            padding: 1px 20px 20px;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+        }
+
+        .tabs {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            background-color: #fff8ec;
+            padding: 15px 0;
+        }
+
+        .tabs button {
+            background: none;
+            border: none;
+            color: rgb(0, 0, 0);
+            font-weight: 600;
+            font-size: 20px;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .tabs button:hover,
+        .tabs button.active {
+            color: #253eff;
+        }
+
+        .section-content {
+            max-width: 1000px;
+            margin: 20px auto;
+            padding: 0 20px;
+            background: #fff8ec;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s ease;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .section-content h2 {
+            text-align: center;
+            padding-top: 30px;
+            font-size: 2rem;
+            color: #000000;
+        }
+
+        .image-row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .image-row img {
+            max-width: 100%;
+            width: 60%;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .download-section {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .download-btn {
+            display: inline-block;
+            background-color: #28a745;
+            color: white;
+            padding: 14px 28px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .download-btn:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+
+<body>
+
+    <section class="hero">
+        <h1>Sanitary Permit Application</h1>
+    </section>
+
+
+    <div class="tabs">
+        <button class="active" onclick="showSection('requirements', this)">Requirements</button>
+        <button onclick="showSection('procedures', this)">Procedures</button>
+        <button onclick="showSection('form', this)">Application Form</button>
+        <button onclick="showSection('submit', this)">Submit Application</button>
+    </div>
+
+    <div class="section-content" id="section-content">
+        <div class="image-row">
+            <img src="images/SanitaryPermit-Requirements-1.png" alt="Requirement Page 1" />
+            <img src="images/SanitaryPermit-Requirements-2.png" alt="Requirement Page 2" />
+        </div>
+        <div class="download-section">
+            <p>Click the button below to download the document:</p>
+            <a class="download-btn" href="requirements/SanitaryPermit-Requirements.pdf"
+                download="SanitaryPermit-Requirements.pdf">Download PDF</a>
+        </div>
+    </div>
+
+    <script>
+        const isLoggedIn = false;
+        function showSection(section, btn) {
+            const contentDiv = document.getElementById('section-content');
+            const tabs = document.querySelectorAll(".tabs button");
+            tabs.forEach(tab => tab.classList.remove("active"));
+            btn.classList.add("active");
+
+            let html = '';
+            if (section === 'requirements') {
+                html = `
+          <div class="image-row">
+            <img src="images/SanitaryPermit-Requirements-1.png" alt="Requirement Page 1" />
+            <img src="images/SanitaryPermit-Requirements-2.png" alt="Requirement Page 2" />
+          </div>
+          <div class="download-section">
+            <p>Click the button below to download the document:</p>
+            <a class="download-btn" href="requirements/SanitaryPermit-Requirements.pdf" 
+            download="SanitaryPermit-Requirements.pdf">Download PDF</a>
+          </div>
+        `;
+            } else if (section === 'procedures') {
+                html = `
+          <div class="image-row">
+            <img src="images/electrical-procedure.jfif" alt="Procedure Image" />
+          </div>
+        `;
+            } else if (section === 'form') {
+                html = `
+          <div class="image-row">
+            <img src="images/SanitaryPermit-Application-1.png" alt="Application Form Page 1" />
+            <img src="images/SanitaryPermit-Application-2.png" alt="Application Form Page 2" />
+          </div>
+          <div class="download-section">
+            <p>Click the button below to download the form:</p>
+            <a class="download-btn" href="application-forms/SanitaryPermit-Application.pdf" 
+            download="SanitaryPermit-Application.pdf">Download PDF</a>
+          </div>
+        `;
+            } else if (section === 'submit') {
+                if (!isLoggedIn) {
+                    html = `
+            <div style="text-align: center; padding: 50px;">
+                <h2>You must sign in to submit your application online.</h2>
+                <p><a href="login.html" style="color: #007bff; font-weight: bold;">Click here to log in</a></p>
+            </div>
+        `;
+                } else {
+                    html = `
+            <h2 style="text-align: center;">Submit Your Application</h2>
+            <form style="max-width: 600px; margin: 20px auto; padding: 20px; background: #fff; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);" 
+                  onsubmit="alert('Application submitted successfully!'); return false;">
+                
+                <label for="fullName">Full Name:</label><br>
+                <input type="text" id="fullName" name="fullName" required style="width: 100%; padding: 10px; margin-bottom: 15px;"><br>
+
+                <label for="email">Email Address:</label><br>
+                <input type="email" id="email" name="email" required style="width: 100%; padding: 10px; margin-bottom: 15px;"><br>
+
+                <label for="applicationFile">Application Form (PDF):</label><br>
+                <input type="file" id="applicationFile" name="applicationFile" accept=".pdf" required style="margin-bottom: 15px;"><br>
+
+                <label for="requirementsFile">Requirements (PDF/ZIP):</label><br>
+                <input type="file" id="requirementsFile" name="requirementsFile" accept=".pdf,.zip" required style="margin-bottom: 20px;"><br>
+
+                <button type="submit" class="download-btn">Submit Application</button>
+            </form>
+        `;
+                }
+            }
+
+            contentDiv.innerHTML = html;
+        }
+    </script>
+    <footer style="background-color: #002244; color: white; padding: 20px 0; text-align: center;">
+        <div
+            style="max-width: 900px; margin: 0 auto; display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 40px;">
+            <img src="images/logo.png" alt="Urbiztondo Logo" style="height: 100px;" />
+            <div style="text-align: center;">
+                <h3 style="margin: 0; font-size: 1.5rem;">Bayan ng Urbiztondo</h3>
+                <p style="margin: 5px 0;">Pangasinan, Philippines</p>
+                <p style="margin: 5px 0; font-weight: bold; font-size: 1.2rem;">
+                    📞 (075) 555-1234 | 📧 contact@urbiztondo.gov.ph
+                </p>
+            </div>
+            <img src="images/pangasinan_logo.png" alt="Pangasinan Logo" style="height: 100px;" />
+        </div>
+        <p style="margin-top: 10px; font-size: 0.9rem; color: #ccc;">
+            © 2025 Municipality of Urbiztondo. All rights reserved.
+        </p>
+    </footer>
+</body>
+
+</html>
